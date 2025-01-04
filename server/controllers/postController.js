@@ -34,9 +34,15 @@ export const getPostById = async (req, res) => {
 export const createPost = async (req, res) => {
   try {
     const db = getDb();
-    const newPost = req.body;
+    const newPost = {
+      title: req.body.title,
+      author: req.body.author,
+      description: req.body.description,
+      content: req.body.content,
+      created_at: req.body.created_at,
+    };
     const result = await db.collection("posts").insertOne(newPost);
-    if (result.insertedCount !== 1) {
+    if (!result) {
       return res.status(500).json({ message: "Failed to create post" });
     }
     res.status(201).json(result);
@@ -49,11 +55,17 @@ export const createPost = async (req, res) => {
 export const updatePost = async (req, res) => {
   try {
     const db = getDb();
-    const updatedPost = req.body;
+    const updatedPost = {
+      title: req.body.title,
+      author: req.body.author,
+      description: req.body.description,
+      content: req.body.content,
+      created_at: req.body.created_at,
+    };
     const result = await db
       .collection("posts")
       .updateOne({ _id: new ObjectId(req.params.id) }, { $set: updatedPost });
-    if (result.modifiedCount !== 1) {
+    if (!result) {
       return res.status(500).json({ message: "Failed to update post" });
     }
     res.status(200).json(result);
@@ -69,7 +81,7 @@ export const deletePost = async (req, res) => {
     const result = await db
       .collection("posts")
       .deleteOne({ _id: new ObjectId(req.params.id) });
-    if (result.deletedCount !== 1) {
+    if (!result) {
       return res.status(500).json({ message: "Failed to delete post" });
     }
     res.status(200).json(result);
