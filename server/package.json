@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "MERN Back-End",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node --env-file=.env server.js",
     "dev": "node --watch --env-file=.env server.js"
@@ -16,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/KingIIILucifer666/Blog-Post-MERN/issues"
   },
-  "homepage": "https://github.com/KingIIILucifer666/Blog-Post-MERN#readme"
+  "homepage": "https://github.com/KingIIILucifer666/Blog-Post-MERN#readme",
+  "dependencies": {
+    "mongodb": "^6.12.0"
+  }
 }
