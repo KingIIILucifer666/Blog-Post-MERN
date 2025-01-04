@@ -1,0 +1,20 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "MERN Back-End",
+  "main": "server.js",
+  "scripts": {
+    "start": "node --env-file=.env server.js",
+    "dev": "node --watch --env-file=.env server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KingIIILucifer666/Blog-Post-MERN.git"
+  },
+  "author": "KingIIILucifer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KingIIILucifer666/Blog-Post-MERN/issues"
+  },
+  "homepage": "https://github.com/KingIIILucifer666/Blog-Post-MERN#readme"
+}
