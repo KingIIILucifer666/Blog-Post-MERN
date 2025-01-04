@@ -17,6 +17,10 @@ let database;
 
 export const connectToServer = () => {
   database = client.db("blog_posts");
+  if (!database) {
+    return console.log("Error connecting to database");
+  }
+  console.log("Connected to database");
 };
 
 export const getDb = () => {
