@@ -43,6 +43,7 @@ export const createPost = async (req, res) => {
       description: req.body.description,
       content: req.body.content,
       created_at: req.body.created_at,
+      imageId: req.body.imageId,
     };
     const result = await db.collection(collection).insertOne(newPost);
     if (!result) {
@@ -64,6 +65,7 @@ export const updatePost = async (req, res) => {
       description: req.body.description,
       content: req.body.content,
       created_at: req.body.created_at,
+      imageId: req.body.imageId,
     };
     const id = req.params.id;
     const result = await db

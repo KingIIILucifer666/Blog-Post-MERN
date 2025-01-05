@@ -13,7 +13,7 @@ const ReadBlog = () => {
       const response = await getPost(id);
       if (response) {
         setPost(response.data);
-        console.log("Post: ", response.data);
+        console.log("Post: ", response);
       }
     }
     if (id) {
@@ -24,6 +24,7 @@ const ReadBlog = () => {
   return (
     <div>
       <button onClick={() => navigate(-1)}>Back</button>
+      <img src={post?.image?.data} />
       <h1>{post.title}</h1>
       <h2>{post.description}</h2>
       <h3>{post.content}</h3>

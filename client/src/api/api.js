@@ -15,7 +15,10 @@ export const getPosts = async () => {
 export const getPost = async (id) => {
   try {
     const response = await axios.get(`${base_url}/api/posts/${id}`);
-    return response;
+    const post = response.data;
+    const image = await getImage(post.imageId);
+    post.image = image;
+    return post;
   } catch (error) {
     console.error("Error fetching post: ", error);
   }
@@ -23,6 +26,12 @@ export const getPost = async (id) => {
 
 export const createPost = async (newPost) => {
   try {
+    const image = await addImage(newPost.file);
+    console.log("Image Uploaded to AWS: ", image);
+    const imageId = newPost.file.name;
+
+    newPost.imageId = imageId;
+
     const response = await axios.post(`${base_url}/api/posts`, newPost);
     return response;
   } catch (error) {
@@ -105,4 +114,22 @@ export const verifyUser = async (user) => {
   } catch (error) {
     console.error(`Error verifying user: ${error}`);
   }
+};
+
+//AWS Images CRUD
+
+export const addImage = async (file) => {
+  const formData = new FormData();
+  formData.append("image", file);
+  const response = await axios.post(`${base_url}/api/images`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return response;
+};
+
+export const getImage = async (id) => {
+  const response = await axios.get(`${base_url}/api/images/${id}`);
+  return response;
 };
