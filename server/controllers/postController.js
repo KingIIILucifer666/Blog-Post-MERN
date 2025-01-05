@@ -39,7 +39,7 @@ export const createPost = async (req, res) => {
     const db = getDb();
     const newPost = {
       title: req.body.title,
-      author: req.body.author,
+      author: req.body.user.id,
       description: req.body.description,
       content: req.body.content,
       created_at: req.body.created_at,

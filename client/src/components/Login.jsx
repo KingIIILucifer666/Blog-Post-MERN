@@ -1,8 +1,10 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { verifyUser } from "../api/api.js";
+import { useNavigate } from "react-router-dom";
 
 const Login = ({ setView }) => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -15,16 +17,13 @@ const Login = ({ setView }) => {
 
       if (response.status === 200) {
         console.log("Logged in user:", response);
+        const token = response.data.token;
+        sessionStorage.setItem("User", token);
+        navigate("/home");
       }
-      resetFields();
     } catch (error) {
       console.error("error during login: ", error);
     }
-  };
-
-  const resetFields = () => {
-    setEmail("");
-    setPassword("");
   };
 
   return (
@@ -44,7 +43,7 @@ const Login = ({ setView }) => {
         <div>
           <label htmlFor="login-password">Password: </label>
           <input
-            type="login-password"
+            type="password"
             id="login-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

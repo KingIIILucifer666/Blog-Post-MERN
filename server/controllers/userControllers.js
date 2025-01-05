@@ -6,8 +6,8 @@ import User from "../models/Schema.js";
 
 const collection = "users";
 
-const createToken = (id) => {
-  return jwt.sign({ id }, process.env.SECRET_KEY, { expiresIn: "3d" });
+const createToken = (user) => {
+  return jwt.sign({ user }, process.env.SECRET_KEY, { expiresIn: "3d" });
 };
 
 //Auth
@@ -26,8 +26,8 @@ export const loginUser = async (req, res) => {
     if (!match) {
       throw Error("Invaild password");
     }
-    const token = createToken(user._id);
-    res.status(200).json({ user, token });
+    const token = createToken(user);
+    res.status(200).json({ token });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/KingIIILucifer666/Blog-Post-MERN#readme",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.722.0",
     "bcrypt": "^5.1.1",
     "colors": "^1.4.0",
     "cors": "^2.8.5",

@@ -8,9 +8,17 @@ import CreateBlog from "./pages/CreateBlog";
 import ReadBlog from "./pages/ReadBlog";
 import Profile from "./pages/Profile";
 import Layout from "./components/Layout";
+import { useEffect } from "react";
+import axios from "axios";
 
 function App() {
   // const base_url = process.env.API_BASE_URL || "http://localhost:8000";
+  useEffect(() => {
+    let token = sessionStorage.getItem("User");
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    }
+  }, []);
 
   return (
     <Router>

@@ -22,7 +22,6 @@ const CreateBlog = () => {
     try {
       const newPost = {
         title: formData.title,
-        author: formData.author,
         description: formData.description,
         content: formData.content,
         created_at: new Date().toISOString(),
@@ -56,17 +55,6 @@ const CreateBlog = () => {
           id="title"
           name="title"
           value={formData.title}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="author">Author:</label>
-        <input
-          type="text"
-          id="author"
-          name="author"
-          value={formData.author}
           onChange={handleChange}
           required
         />

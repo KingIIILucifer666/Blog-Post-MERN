@@ -6,22 +6,23 @@ import {
   getPosts,
   updatePost,
 } from "../controllers/postController.js";
+import verifyToken from "../middleware/auth.js";
 
 const postRoutes = Router();
 
 //GET all posts
-postRoutes.get("/", getPosts);
+postRoutes.get("/", verifyToken, getPosts);
 
 //GET post by id
-postRoutes.get("/:id", getPostById);
+postRoutes.get("/:id", verifyToken, getPostById);
 
 //POST new post
-postRoutes.post("/", createPost);
+postRoutes.post("/", verifyToken, createPost);
 
 //PUT update post by id
-postRoutes.put("/:id", updatePost);
+postRoutes.put("/:id", verifyToken, updatePost);
 
 //DELETE post by id
-postRoutes.delete("/:id", deletePost);
+postRoutes.delete("/:id", verifyToken, deletePost);
 
 export default postRoutes;
