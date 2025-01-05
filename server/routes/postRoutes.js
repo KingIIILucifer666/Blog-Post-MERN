@@ -7,21 +7,21 @@ import {
   updatePost,
 } from "../controllers/postController.js";
 
-const router = Router();
+const postRoutes = Router();
 
 //GET all posts
-router.get("/", getPosts);
+postRoutes.get("/", getPosts);
 
 //GET post by id
-router.get("/:id", getPostById);
+postRoutes.get("/:id", getPostById);
 
 //POST new post
-router.post("/", createPost);
+postRoutes.post("/", createPost);
 
 //PUT update post by id
-router.put("/:id", updatePost);
+postRoutes.put("/:id", updatePost);
 
 //DELETE post by id
-router.delete("/:id", deletePost);
+postRoutes.delete("/:id", deletePost);
 
-export default router;
+export default postRoutes;

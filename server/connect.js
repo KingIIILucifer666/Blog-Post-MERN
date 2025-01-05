@@ -1,10 +1,12 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
+import mongoose from "mongoose";
 
 const uri =
   process.env.MONGODB_URI ||
   "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false";
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const dbName = "blog_posts";
+
 export const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -16,11 +18,29 @@ export const client = new MongoClient(uri, {
 let database;
 
 export const connectToServer = () => {
-  database = client.db("blog_posts");
+  database = client.db(dbName);
   if (!database) {
     return console.log("Error connecting to database");
   }
   console.log("Connected to database");
+};
+
+export const connectDbToMongoose = () => {
+  mongoose
+    .connect(uri, {
+      dbName: dbName,
+    })
+    .then(() => console.log("Connected to MongoDB"))
+    .catch((err) => console.error("Connection error:", err));
+
+  mongoose.connection.on("connected", () => {
+    console.log("Mongoose is connected to the database");
+    // console.log("Database name:", mongoose.connection.name);
+  });
+
+  mongoose.connection.on("error", (err) => {
+    console.error("Mongoose connection error:", err);
+  });
 };
 
 export const getDb = () => {

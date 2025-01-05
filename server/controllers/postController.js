@@ -1,10 +1,12 @@
 import { getDb } from "../connect.js";
 import { ObjectId } from "mongodb";
 
+const collection = "posts";
+
 export const getPosts = async (req, res) => {
   try {
     const db = getDb();
-    const posts = await db.collection("posts").find({}).toArray();
+    const posts = await db.collection(collection).find({}).toArray();
     if (!posts) {
       return res.status(404).json({ message: "No posts found" });
     }
@@ -18,9 +20,10 @@ export const getPosts = async (req, res) => {
 export const getPostById = async (req, res) => {
   try {
     const db = getDb();
+    const id = req.params.id;
     const post = await db
-      .collection("posts")
-      .findOne({ _id: new ObjectId(req.params.id) });
+      .collection(collection)
+      .findOne({ _id: new ObjectId(id) });
     if (!post) {
       return res.status(404).json({ message: "Post not found" });
     }
@@ -41,7 +44,7 @@ export const createPost = async (req, res) => {
       content: req.body.content,
       created_at: req.body.created_at,
     };
-    const result = await db.collection("posts").insertOne(newPost);
+    const result = await db.collection(collection).insertOne(newPost);
     if (!result) {
       return res.status(500).json({ message: "Failed to create post" });
     }
@@ -62,9 +65,10 @@ export const updatePost = async (req, res) => {
       content: req.body.content,
       created_at: req.body.created_at,
     };
+    const id = req.params.id;
     const result = await db
-      .collection("posts")
-      .updateOne({ _id: new ObjectId(req.params.id) }, { $set: updatedPost });
+      .collection(collection)
+      .updateOne({ _id: new ObjectId(id) }, { $set: updatedPost });
     if (!result) {
       return res.status(500).json({ message: "Failed to update post" });
     }
@@ -78,9 +82,10 @@ export const updatePost = async (req, res) => {
 export const deletePost = async (req, res) => {
   try {
     const db = getDb();
+    const id = req.params.id;
     const result = await db
-      .collection("posts")
-      .deleteOne({ _id: new ObjectId(req.params.id) });
+      .collection(collection)
+      .deleteOne({ _id: new ObjectId(id) });
     if (!result) {
       return res.status(500).json({ message: "Failed to delete post" });
     }
