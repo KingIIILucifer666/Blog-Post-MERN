@@ -16,10 +16,12 @@ const Home = () => {
     fetchData();
   }, []);
   return (
-    <div className="posts">
-      {posts.map((post) => (
-        <BlogCard post={post} key={post._id} />
-      ))}
+    <div className="flex flex-col w-full items-center">
+      <div>
+        {posts.map((post) => (
+          <BlogCard post={post} key={post._id} />
+        ))}
+      </div>
     </div>
   );
 };

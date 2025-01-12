@@ -1,9 +1,10 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
 import { verifyUser } from "../api/api.js";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button.jsx";
+import { Input } from "@/components/ui/input.jsx";
 
-const Login = ({ setView }) => {
+const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,46 +29,30 @@ const Login = ({ setView }) => {
 
   return (
     <div>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="login-email">Email: </label>
-          <input
-            type="login-email"
-            id="login-email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="login-password">Password: </label>
-          <input
-            type="password"
-            id="login-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Login</button>
+      <h1 className="my-5">Login</h1>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 my-4">
+        <Input
+          placeholder="Email"
+          type="login-email"
+          id="login-email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <Input
+          placeholder="********"
+          type="password"
+          id="login-password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <Button className="w-full" type="submit">
+          Login
+        </Button>
       </form>
-      <p>
-        Create a new account?{" "}
-        <button
-          onClick={() => {
-            setView(0);
-          }}
-        >
-          Register here
-        </button>
-      </p>
     </div>
   );
-};
-
-Login.propTypes = {
-  setView: PropTypes.func.isRequired,
 };
 
 export default Login;
